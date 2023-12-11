@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="verifyEmailButton" type="id" />
+    <item name="signOutButton" type="id" />
+    <item name="signedInButtons" type="id" />
+    <item name="emailCreateAccountButton" type="id" />
+    <item name="emailSignInButton" type="id" />
+    <item name="emailPasswordButtons" type="id" />
+    <item name="fieldPassword" type="id" />
+    <item name="fieldEmail" type="id" />
+    <item name="emailPasswordFields" type="id" />
+    <item name="detail" type="id" />
+    <item name="status" type="id" />
+    <item name="titleText" type="id" />
+    <item name="main_layout" type="id" />
+</resources>

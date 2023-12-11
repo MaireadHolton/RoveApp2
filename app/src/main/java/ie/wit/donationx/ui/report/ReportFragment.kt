@@ -1,5 +1,6 @@
 package ie.wit.donationx.ui.report
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
 import androidx.core.view.MenuHost
@@ -19,10 +20,13 @@ import ie.wit.donationx.adapters.VisitClickListener
 import ie.wit.donationx.databinding.FragmentReportBinding
 import ie.wit.donationx.main.Rove2App
 import ie.wit.donationx.models.VisitModel
+import ie.wit.donationx.utils.createLoader
+import ie.wit.donationx.utils.showLoader
 
 class ReportFragment : Fragment(), VisitClickListener {
 
     lateinit var app: Rove2App
+    lateinit var loader : AlertDialog
     private var _fragBinding: FragmentReportBinding? = null
     private val fragBinding get() = _fragBinding!!
     private lateinit var reportViewModel: ReportViewModel
@@ -38,13 +42,17 @@ class ReportFragment : Fragment(), VisitClickListener {
         _fragBinding = FragmentReportBinding.inflate(inflater, container, false)
         val root = fragBinding.root
         //activity?.title = getString(R.string.action_report)
+        loader = createLoader(requireActivity())
+
 	setupMenu()
         fragBinding.recyclerView.layoutManager = LinearLayoutManager(activity)
         reportViewModel = ViewModelProvider(this).get(ReportViewModel::class.java)
+        showLoader(loader,"Downloading Visits")
         reportViewModel.observableVisitsList.observe(viewLifecycleOwner, Observer {
-                donations ->
-            donations?.let { render(donations) }
+                visits ->
+            visits?.let { render(visits) }
         })
+
 
         val fab: FloatingActionButton = fragBinding.fab
         fab.setOnClickListener {
