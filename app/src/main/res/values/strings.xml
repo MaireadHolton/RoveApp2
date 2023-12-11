@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Rove</string>
+    <string name="visitTitle">Add business name</string>
+    <string name="editVisitTitle">Business name</string>
+    <string name="visitSubtitle">Please Rate the business for accessibility</string>
+    <string name="addVisitButton">Add</string>
+    <string name="bar">Bar</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="museum">Museum</string>
+    <string name="shop">Shop</string>
+    <string name="hotel">Hotel</string>
+    <string name="rating">Rating</string>
+    <string name="defaultMethod">N/A</string>
+    <string name="enter_rating">Enter Rating</string>
+    <string name="action_addVisit">Add Visit</string>
+    <string name="action_report">Report</string>
+
+    <string name="action_share">Share</string>
+    <string name="action_send">Send</string>
+    <string name="group_communicate">Communicate</string>
+
+    <string name="nav_header_subtitle">Rove, a mobility friendly app</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="action_about">About Us</string>
+    <string name="aboutus_title">Rove, a mobility friendly app</string>
+    <string name="aboutus_message">Signup to rate your trips for accessibility</string>
+
+    <string name="visitsNotFound">No Visits Added Yet!</string>
+    <string name="visitError">Error : Couldn\'t Add Visit…</string>
+    <string name="visitDetails">Visit Details</string>
+
+    <string name="visitType">Business type:</string>
+    <string name="message">Message :</string>
+</resources>
