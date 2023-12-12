@@ -11,7 +11,7 @@ interface VisitClickListener {
     fun onVisitClick(visit: VisitModel)
 }
 
-class VisitAdapter constructor(private var visits: List<VisitModel>,
+class VisitAdapter constructor(private var visits: ArrayList<VisitModel>,
                                   private val listener: VisitClickListener)
     : RecyclerView.Adapter<VisitAdapter.MainHolder>() {
 
@@ -27,6 +27,11 @@ class VisitAdapter constructor(private var visits: List<VisitModel>,
         holder.bind(visit,listener)
     }
 
+    fun removeAt(position: Int) {
+        visits.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     override fun getItemCount(): Int = visits.size
 
     inner class MainHolder(val binding : CardVisitBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -35,10 +40,12 @@ class VisitAdapter constructor(private var visits: List<VisitModel>,
 //            binding.ratingamount.text = visit.ratingamount.toString()
 //            binding.visitType.text = visit.visitType
 
+            binding.root.tag = visit._id
             binding.visit = visit
             binding.imageIcon.setImageResource(R.mipmap.ic_launcher_round)
             binding.root.setOnClickListener { listener.onVisitClick(visit) }
             binding.executePendingBindings()
+
         }
     }
 }

@@ -5,7 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 
 @Parcelize
-data class VisitModel(var id: Long = 0,
+data class VisitModel(var _id: String = "N/A",
                          val visitTitle: String = "",
                          val visitType: String = "N/A",
-                         val rating: Int = 0) : Parcelable
+                         val rating: Int = 0,
+                         var email: String = "joe@bloggs.com") : Parcelable

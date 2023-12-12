@@ -10,19 +10,26 @@ import retrofit2.http.Path
 import retrofit2.http.Body
 interface VisitService {
     @GET("/visits")
-    fun getall(): Call<List<VisitModel>>
+    fun findAll(): Call<List<VisitModel>>
 
-    @GET("/visits/{id}")
-    fun get(@Path("id") id: String): Call<VisitModel>
+    @GET("/visits/{email}")
+    fun findAll(@Path("email") email: String?): Call<List<VisitModel>>
 
-    @DELETE("/visits/{id}")
-    fun delete(@Path("id") id: String): Call<VisitWrapper>
+    @GET("/visits/{email}/{id}")
+    fun get(@Path("email") email: String?,
+            @Path("id") id: String): Call<VisitModel>
 
-    @POST("/visits")
-    fun post(@Body visit: VisitModel): Call<VisitWrapper>
+    @DELETE("/visits/{email}/{id}")
+    fun delete(@Path("email") email: String?,
+               @Path("id") id: String): Call<VisitWrapper>
 
-    @PUT("/visits/{id}")
-    fun put(@Path("id") id: String,
+    @POST("/visits/{email}")
+    fun post(@Path("email") email: String?,
+             @Body visit: VisitModel): Call<VisitWrapper>
+
+    @PUT("/visits/{email}/{id}")
+    fun put(@Path("email") email: String?,
+            @Path("id") id: String,
             @Body visit: VisitModel
     ): Call<VisitWrapper>
 }

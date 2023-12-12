@@ -47,6 +47,6 @@
             app:destination="@id/reportFragment" />
         <argument
             android:name="visitid"
-            app:argType="long" />
+            app:argType="string" />
     </fragment>
 </navigation>

@@ -11,7 +11,8 @@ class VisitDetailViewModel : ViewModel() {
 
     val observableVisit: LiveData<VisitModel>
         get() = visit
-    fun getVisit(id: Long) {
+
+    fun getVisit(id: String) {
         visit.value = VisitManager.findById(id)
     }
 }

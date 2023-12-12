@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object VisitClient {
-    val serviceURL = "https://10.0.2.2:3000"
+    val serviceURL = "https://donationx-multi-web-server.onrender.com"
 
     fun getApi() : VisitService {
 
