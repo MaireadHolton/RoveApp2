@@ -25,6 +25,7 @@ import ie.wit.donationx.main.Rove2App
 import ie.wit.donationx.models.VisitModel
 import ie.wit.donationx.ui.auth.LoggedInViewModel
 import ie.wit.donationx.utils.SwipeToDeleteCallback
+import ie.wit.donationx.utils.SwipeToEditCallback
 import ie.wit.donationx.utils.createLoader
 import ie.wit.donationx.utils.hideLoader
 import ie.wit.donationx.utils.showLoader
@@ -72,14 +73,22 @@ class ReportFragment : Fragment(), VisitClickListener {
                 showLoader(loader,"Deleting Visit")
                 val adapter = fragBinding.recyclerView.adapter as VisitAdapter
                 adapter.removeAt(viewHolder.adapterPosition)
-                reportViewModel.delete(reportViewModel.liveFirebaseUser.value?.email!!,
-                                         viewHolder.itemView.tag as String)
+                reportViewModel.delete(reportViewModel.liveFirebaseUser.value?.uid!!,
+                    (viewHolder.itemView.tag as VisitModel).uid!!)
                 hideLoader(loader)
 
             }
         }
         val itemTouchDeleteHelper = ItemTouchHelper(swipeDeleteHandler)
         itemTouchDeleteHelper.attachToRecyclerView(fragBinding.recyclerView)
+
+        val swipeEditHandler = object : SwipeToEditCallback(requireContext()) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                onVisitClick(viewHolder.itemView.tag as VisitModel)
+            }
+        }
+        val itemTouchEditHelper = ItemTouchHelper(swipeEditHandler)
+        itemTouchEditHelper.attachToRecyclerView(fragBinding.recyclerView)
 
         return root
     }
@@ -114,7 +123,7 @@ class ReportFragment : Fragment(), VisitClickListener {
     }
 
     override fun onVisitClick(visit: VisitModel) {
-        val action = ReportFragmentDirections.actionReportFragmentToVisitDetailFragment(visit._id)
+        val action = ReportFragmentDirections.actionReportFragmentToVisitDetailFragment(visit.uid)
         findNavController().navigate(action)
     }
 

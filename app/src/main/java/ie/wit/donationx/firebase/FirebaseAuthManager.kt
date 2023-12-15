@@ -4,6 +4,10 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import ie.wit.donationx.models.VisitModel
+import ie.wit.donationx.models.VisitStore
 import timber.log.Timber
 
 class FirebaseAuthManager (application: Application) {

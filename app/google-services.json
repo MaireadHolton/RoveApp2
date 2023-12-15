@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "355826058154",
+    "firebase_url": "https://roveapp2-691bc-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "roveapp2-691bc",
+    "storage_bucket": "roveapp2-691bc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:355826058154:android:341460763c1f5938c9e1d3",
+        "android_client_info": {
+          "package_name": "ie.wit.donationx"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcWuNQHRzNGlo439t8ikNsnuEr9eBZQpY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

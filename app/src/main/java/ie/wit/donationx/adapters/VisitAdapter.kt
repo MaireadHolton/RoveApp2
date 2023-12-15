@@ -40,7 +40,7 @@ class VisitAdapter constructor(private var visits: ArrayList<VisitModel>,
 //            binding.ratingamount.text = visit.ratingamount.toString()
 //            binding.visitType.text = visit.visitType
 
-            binding.root.tag = visit._id
+            binding.root.tag = visit.uid
             binding.visit = visit
             binding.imageIcon.setImageResource(R.mipmap.ic_launcher_round)
             binding.root.setOnClickListener { listener.onVisitClick(visit) }

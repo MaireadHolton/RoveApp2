@@ -3,7 +3,8 @@ package ie.wit.donationx.ui.visit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ie.wit.donationx.models.VisitManager
+import com.google.firebase.auth.FirebaseUser
+import ie.wit.donationx.firebase.FirebaseDBManager
 import ie.wit.donationx.models.VisitModel
 
 class VisitViewModel : ViewModel() {
@@ -13,9 +14,10 @@ class VisitViewModel : ViewModel() {
     val observableStatus: LiveData<Boolean>
         get() = status
 
-    fun addVisit(visit: VisitModel) {
+    fun addVisit(firebaseUser: MutableLiveData<FirebaseUser>, visit: VisitModel) {
         status.value = try {
-            VisitManager.create(visit)
+            //VisitManager.create(visit)
+            FirebaseDBManager.create(firebaseUser, visit)
             true
         } catch (e: IllegalArgumentException) {
             false
