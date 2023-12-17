@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import ie.wit.donationx.R
+import ie.wit.donationx.adapters.VisitAdapter
 
 abstract class SwipeToDeleteCallback (context: Context): ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT){
     private val deleteIcon = ContextCompat.getDrawable(context, R.drawable.ic_swipe_delete)
@@ -27,7 +28,7 @@ abstract class SwipeToDeleteCallback (context: Context): ItemTouchHelper.SimpleC
          * if (viewHolder?.itemViewType == YourAdapter.SOME_TYPE) return 0
          * if (viewHolder?.adapterPosition == 0) return 0
          */
-        if (viewHolder.adapterPosition == 10) return 0
+        if ((viewHolder as VisitAdapter.MainHolder).readOnlyRow) return 0
         return super.getMovementFlags(recyclerView, viewHolder)
     }
 

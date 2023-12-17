@@ -13,7 +13,20 @@
           "package_name": "ie.wit.donationx"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "355826058154-079pm0o2q4r21ft08oqj9i6a3eumvsbb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ie.wit.donationx",
+            "certificate_hash": "e94e46c2df04e2956b1bbe1d481ff050520a0272"
+          }
+        },
+        {
+          "client_id": "355826058154-dunmllffa9s506ftftq4g6teda9gdflh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBcWuNQHRzNGlo439t8ikNsnuEr9eBZQpY"
@@ -21,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "355826058154-dunmllffa9s506ftftq4g6teda9gdflh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

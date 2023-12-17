@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ie.wit.donationx.firebase.FirebaseDBManager
-import ie.wit.donationx.models.VisitManager
 import ie.wit.donationx.models.VisitModel
 import timber.log.Timber
 

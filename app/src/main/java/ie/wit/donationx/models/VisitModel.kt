@@ -11,6 +11,7 @@ data class VisitModel(var uid: String = "",
                          val visitTitle: String = "",
                          val visitType: String = "N/A",
                          val rating: Int = 0,
+                         var pic: String = "",
                          var email: String = "joe@bloggs.com") : Parcelable
 {
     @Exclude
@@ -20,6 +21,7 @@ data class VisitModel(var uid: String = "",
             "visitTitle" to visitTitle,
             "visitType" to visitType,
             "rating" to rating,
+            "pic" to pic,
             "email" to email
         )
     }

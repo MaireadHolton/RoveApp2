@@ -82,7 +82,8 @@ class VisitFragment : Fragment() {
             else if (layout.visitType.checkedRadioButtonId == R.id.Shop) "Shop"
             else "Museum"
             visitViewModel.addVisit(loggedInViewModel.liveFirebaseUser,
-                VisitModel(visitTitle = visitTitle, visitType = visitType,rating = rating, email = loggedInViewModel.liveFirebaseUser.value?.email!!))
+                VisitModel(visitTitle = visitTitle, visitType = visitType,
+                    rating = rating, email = loggedInViewModel.liveFirebaseUser.value?.email!!))
         }
     }
  private fun setupMenu() {

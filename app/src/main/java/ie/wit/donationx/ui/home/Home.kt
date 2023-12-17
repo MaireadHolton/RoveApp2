@@ -1,9 +1,14 @@
 package ie.wit.donationx.ui.home
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +21,9 @@ import ie.wit.donationx.databinding.NavHeaderBinding
 import ie.wit.donationx.ui.auth.LoggedInViewModel
 import ie.wit.donationx.ui.auth.Login
 import androidx.lifecycle.Observer
+import ie.wit.donationx.firebase.FirebaseImageManager
+import ie.wit.donationx.utils.readImageUri
+import timber.log.Timber
 
 
 class Home : AppCompatActivity() {
@@ -25,6 +33,9 @@ class Home : AppCompatActivity() {
     private lateinit var navHeaderBinding : NavHeaderBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var loggedInViewModel : LoggedInViewModel
+    private lateinit var headerView : View
+    private lateinit var intentLauncher : ActivityResultLauncher<Intent>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,14 +57,16 @@ class Home : AppCompatActivity() {
 
         val navView = homeBinding.navView
         navView.setupWithNavController(navController)
+        initNavHeader()
     }
 
     public override fun onStart() {
         super.onStart()
         loggedInViewModel = ViewModelProvider(this).get(LoggedInViewModel::class.java)
         loggedInViewModel.liveFirebaseUser.observe(this, Observer { firebaseUser ->
-            if (firebaseUser != null)
-                updateNavHeader(loggedInViewModel.liveFirebaseUser.value!!)
+            if (firebaseUser != null) {
+                updateNavHeader(firebaseUser)
+            }
         })
 
         loggedInViewModel.loggedOut.observe(this, Observer { loggedout ->
@@ -61,13 +74,69 @@ class Home : AppCompatActivity() {
                 startActivity(Intent(this, Login::class.java))
             }
         })
+        registerImagePickerCallback()
+    }
 
+    private fun initNavHeader() {
+        Timber.i("DX Init Nav Header")
+        headerView = homeBinding.navView.getHeaderView(0)
+        navHeaderBinding = NavHeaderBinding.bind(headerView)
+        navHeaderBinding.navHeaderImage.setOnClickListener {
+            Toast.makeText(this,"Click To Change Image",Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun updateNavHeader(currentUser: FirebaseUser) {
-        var headerView = homeBinding.navView.getHeaderView(0)
-        navHeaderBinding = NavHeaderBinding.bind(headerView)
+        FirebaseImageManager.imageUri.observe(this) { result ->
+            if (result == Uri.EMPTY) {
+                Timber.i("DX NO Existing imageUri")
+                if (currentUser.photoUrl != null) {
+                    //if you're a google user
+                    FirebaseImageManager.updateUserImage(
+                        currentUser.uid,
+                        currentUser.photoUrl,
+                        navHeaderBinding.navHeaderImage,
+                        false
+                    )
+                } else {
+                    Timber.i("DX Loading Existing Default imageUri")
+                    FirebaseImageManager.updateDefaultImage(
+                        currentUser.uid,
+                        R.drawable.rove2,
+                        navHeaderBinding.navHeaderImage
+                    )
+                }
+            } else // load existing image from firebase
+            {
+                Timber.i("DX Loading Existing imageUri")
+                FirebaseImageManager.updateUserImage(
+                    currentUser.uid,
+                    FirebaseImageManager.imageUri.value,
+                    navHeaderBinding.navHeaderImage, false
+                )
+            }    }
         navHeaderBinding.navHeaderEmail.text = currentUser.email
+        if(currentUser.displayName != null)
+            navHeaderBinding.navHeaderName.text = currentUser.displayName
+    }
+
+    private fun registerImagePickerCallback() {
+        intentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                when(result.resultCode){
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            Timber.i("DX registerPickerCallback() ${readImageUri(result.resultCode, result.data).toString()}")
+                            FirebaseImageManager
+                                .updateUserImage(loggedInViewModel.liveFirebaseUser.value!!.uid,
+                                    readImageUri(result.resultCode, result.data),
+                                    navHeaderBinding.navHeaderImage,
+                                    true)
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
     }
 
     override fun onSupportNavigateUp(): Boolean {

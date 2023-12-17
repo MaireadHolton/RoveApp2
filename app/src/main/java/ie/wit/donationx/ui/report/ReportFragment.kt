@@ -3,6 +3,7 @@ package ie.wit.donationx.ui.report
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -24,11 +25,7 @@ import ie.wit.donationx.databinding.FragmentReportBinding
 import ie.wit.donationx.main.Rove2App
 import ie.wit.donationx.models.VisitModel
 import ie.wit.donationx.ui.auth.LoggedInViewModel
-import ie.wit.donationx.utils.SwipeToDeleteCallback
-import ie.wit.donationx.utils.SwipeToEditCallback
-import ie.wit.donationx.utils.createLoader
-import ie.wit.donationx.utils.hideLoader
-import ie.wit.donationx.utils.showLoader
+import ie.wit.donationx.utils.*
 
 class ReportFragment : Fragment(), VisitClickListener {
 
@@ -42,9 +39,8 @@ class ReportFragment : Fragment(), VisitClickListener {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?,
+                               savedInstanceState: Bundle?
     ): View? {
         _fragBinding = FragmentReportBinding.inflate(inflater, container, false)
         val root = fragBinding.root
@@ -101,7 +97,17 @@ class ReportFragment : Fragment(), VisitClickListener {
 
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.menu_report, menu)
-            }
+
+                val item = menu.findItem(R.id.toggleVisits) as MenuItem
+                item.setActionView(R.layout.togglebutton_layout)
+                val toggleVisits: SwitchCompat = item.actionView!!.findViewById(R.id.toggleButton)
+                toggleVisits.isChecked = false
+
+                toggleVisits.setOnCheckedChangeListener { _, isChecked ->
+                    if (isChecked) reportViewModel.loadAll()
+                    else reportViewModel.load()
+                }
+                }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 // Validate and handle the selected menu item
@@ -112,7 +118,8 @@ class ReportFragment : Fragment(), VisitClickListener {
     }
 
     private fun render(visitsList: ArrayList<VisitModel>) {
-        fragBinding.recyclerView.adapter = VisitAdapter(visitsList,this)
+        fragBinding.recyclerView.adapter = VisitAdapter(visitsList,this,
+            reportViewModel.readOnly.value!!)
         if (visitsList.isEmpty()) {
             fragBinding.recyclerView.visibility = View.GONE
             fragBinding.visitsNotFound.visibility = View.VISIBLE
@@ -124,14 +131,18 @@ class ReportFragment : Fragment(), VisitClickListener {
 
     override fun onVisitClick(visit: VisitModel) {
         val action = ReportFragmentDirections.actionReportFragmentToVisitDetailFragment(visit.uid)
-        findNavController().navigate(action)
+        if(!reportViewModel.readOnly.value!!)
+            findNavController().navigate(action)
     }
 
     fun setSwipeRefresh() {
         fragBinding.swiperefresh.setOnRefreshListener {
             fragBinding.swiperefresh.isRefreshing = true
-            showLoader(loader,"Downloading Visits")
-            reportViewModel.load()
+            showLoader(loader, "Downloading Visits")
+            if(reportViewModel.readOnly.value!!)
+                reportViewModel.loadAll()
+            else
+                reportViewModel.load()
         }
     }
 

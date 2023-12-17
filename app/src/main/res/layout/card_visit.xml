@@ -29,7 +29,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginEnd="16dp"
                 android:contentDescription="@string/app_name"
-                app:srcCompat="@mipmap/ic_launcher" />
+                app:srcCompat="@mipmap/ic_launcher_round" />
 
 
             <TextView
@@ -77,6 +77,18 @@
                 android:text="@{visit.visitType}"
                 android:textSize="24sp"
                 tools:text="@string/restaurant" />
+
+            <ImageView
+                android:id="@+id/imagefavourite"
+                android:layout_width="39dp"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="96dp"
+                android:layout_marginTop="08dp"
+                android:layout_marginEnd="50dp"
+                android:layout_toEndOf="@id/visitTitle"
+                app:srcCompat="@drawable/heart_off" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
