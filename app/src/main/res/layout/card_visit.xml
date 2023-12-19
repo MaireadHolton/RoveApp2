@@ -49,7 +49,7 @@
                 android:layout_height="30dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="190dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="47dp"
                 android:layout_toEndOf="@+id/imageIcon"
                 android:text="@{Integer.toString(visit.rating)}"
                 android:textSize="24sp"
@@ -61,10 +61,20 @@
                 android:layout_height="30dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="215dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="47dp"
                 android:layout_toEndOf="@+id/imageIcon"
                 android:textSize="24sp"
                 app:srcCompat="@mipmap/ic_star_foreground" />
+
+
+            <Button
+                android:id="@+id/favBtn"
+                android:layout_width="103dp"
+                android:layout_height="53dp"
+                android:layout_marginStart="37dp"
+                android:layout_toEndOf="@+id/visitTitle"
+                android:drawableLeft="@drawable/ic_favorite_nofill"
+                android:text="Add" />
 
             <TextView
                 android:id="@+id/visitType"
@@ -72,23 +82,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="-230dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="47dp"
                 android:layout_toEndOf="@+id/ratingAmount"
                 android:text="@{visit.visitType}"
                 android:textSize="24sp"
                 tools:text="@string/restaurant" />
 
-            <ImageView
-                android:id="@+id/imagefavourite"
-                android:layout_width="39dp"
-                android:layout_height="30dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="96dp"
-                android:layout_marginTop="08dp"
-                android:layout_marginEnd="50dp"
-                android:layout_toEndOf="@id/visitTitle"
-                app:srcCompat="@drawable/heart_off" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

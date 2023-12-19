@@ -49,4 +49,13 @@
             android:name="visitid"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="ie.wit.donationx.ui.map.MapsFragment"
+        android:label="visit map"
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapsFragment_to_visitDetailFragment"
+            app:destination="@id/visitDetailFragment" />
+    </fragment>
 </navigation>

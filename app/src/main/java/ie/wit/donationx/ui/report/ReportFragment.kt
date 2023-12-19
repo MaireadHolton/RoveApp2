@@ -3,6 +3,9 @@ package ie.wit.donationx.ui.report
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageButton
+import android.widget.Toast
+import android.widget.ToggleButton
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -52,6 +55,8 @@ class ReportFragment : Fragment(), VisitClickListener {
             val action = ReportFragmentDirections.actionReportFragmentToVisitFragment()
             findNavController().navigate(action)
         }
+
+
         showLoader(loader,"Downloading Visits")
         reportViewModel.observableVisitsList.observe(viewLifecycleOwner, Observer {
                 visits ->
@@ -107,7 +112,7 @@ class ReportFragment : Fragment(), VisitClickListener {
                     if (isChecked) reportViewModel.loadAll()
                     else reportViewModel.load()
                 }
-                }
+            }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 // Validate and handle the selected menu item
@@ -120,6 +125,7 @@ class ReportFragment : Fragment(), VisitClickListener {
     private fun render(visitsList: ArrayList<VisitModel>) {
         fragBinding.recyclerView.adapter = VisitAdapter(visitsList,this,
             reportViewModel.readOnly.value!!)
+
         if (visitsList.isEmpty()) {
             fragBinding.recyclerView.visibility = View.GONE
             fragBinding.visitsNotFound.visibility = View.VISIBLE

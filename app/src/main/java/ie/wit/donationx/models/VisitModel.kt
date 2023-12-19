@@ -8,11 +8,14 @@ import kotlinx.parcelize.Parcelize
 @IgnoreExtraProperties
 @Parcelize
 data class VisitModel(var uid: String = "",
-                         val visitTitle: String = "",
-                         val visitType: String = "N/A",
-                         val rating: Int = 0,
-                         var pic: String = "",
-                         var email: String = "joe@bloggs.com") : Parcelable
+                      val visitTitle: String = "",
+                      val visitType: String = "N/A",
+                      val rating: Int = 0,
+                      var pic: String = "",
+                      var isFavourite: Boolean = false,
+                      var latitude: Double = 0.0,
+                      var longitude: Double = 0.0,
+                      var email: String = "joe@bloggs.com") : Parcelable
 {
     @Exclude
     fun toMap(): Map<String, Any?> {
@@ -22,6 +25,9 @@ data class VisitModel(var uid: String = "",
             "visitType" to visitType,
             "rating" to rating,
             "pic" to pic,
+            "isFavourite" to isFavourite,
+            "latitude" to latitude,
+            "longitude" to longitude,
             "email" to email
         )
     }
