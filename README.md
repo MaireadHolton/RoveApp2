@@ -6,7 +6,7 @@ This is an Android app which allows users to rate businesses on accessibility. U
 
 The project is laid out according to MVVM design pattern
 
-### **Design/ UX Approach**
+## **Design/ UX Approach**
 
 The layout folder contains all of the xml files for designing the views in the app. There is a similar theme running throught the app and easy to use text boxes, rating bars, radio group and map view for users to enter details in the app. <br>
 Login menu: <br>
@@ -30,13 +30,13 @@ User navigation Flow: <br>
 ![image](https://github.com/MaireadHolton/RoveApp2/assets/97246575/6e3d276e-7cbb-48ca-8506-2f6d61aeb261) <br>
 
 
-#### **Elements employed:**
+## **Elements employed:**
 I have used android studio to create the app with firebase real time database to store all visits in the app. I have created a login page with firebase authentication employed using email and password authentication and also google authentication (using google credentials API).
 I have added a rating bar to the add visit fragment to allow users to rate the loactions they have visited and a radio group so users can select the type of business they visited. A user image is displayed alongside each visit added (in the report fragment), the image is uploaded to a firebase storage bucket. 
 I have employed a map fragment to display the visits added on a map using google maps API.
 
 
-##### **UML & Class Diagram: **
+## **UML & Class Diagram:**
 
 Use Case Diagram: <br>
 ![image](https://github.com/MaireadHolton/RoveApp2/assets/97246575/4c0853e6-7896-4969-99c1-66dc3cf8620b) <br>
@@ -46,7 +46,7 @@ Class Diagram: <br>
 ![image](https://github.com/MaireadHolton/RoveApp2/assets/97246575/5e4fae04-d3b7-4002-b2d4-116c8bca3390) <br>
 
 
-###### **References:**
+### **References:**
 Overall Design: https://tutors.dev/course/wit-hdip-comp-sci-2022-mobile-app-dev <br>
 Databinding: https://developer.android.com/topic/libraries/data-binding <br>
 Recycler view: https://developer.android.com/reference/kotlin/androidx/recyclerview/widget/RecyclerView <br>
