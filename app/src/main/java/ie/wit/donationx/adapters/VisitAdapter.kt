@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import android.widget.ToggleButton
@@ -35,9 +36,12 @@ class VisitAdapter constructor(private var visits: ArrayList<VisitModel>,
     private lateinit var firebaseAuth: FirebaseAuth
     private var isFavourite = false
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
         val binding = CardVisitBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
+
+        val button = binding.favBtn
 
         return MainHolder(binding, readOnly)
     }
@@ -45,6 +49,24 @@ class VisitAdapter constructor(private var visits: ArrayList<VisitModel>,
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val visit = visits[holder.adapterPosition]
         holder.bind(visit,listener)
+
+        /*holder.itemView.findViewById<ToggleButton>(R.id.favBtn).isChecked = visit.isFavourite
+
+        holder.itemView.findViewById<ToggleButton>(R.id.favBtn).setOnCheckedChangeListener{ _, isChecked ->
+            if (isChecked) {
+                Toast.makeText(
+                    holder.itemView.context,
+                    "Added to Favourites",
+                    Toast.LENGTH_SHORT).show()
+                visit.isFavourite = true
+            } else {
+                Toast.makeText(
+                    holder.itemView.context,
+                    "Removed from Favorites",
+                    Toast.LENGTH_SHORT).show()
+                visit.isFavourite = false
+            }
+        }*/
     }
 
     fun removeAt(position: Int) {
@@ -59,31 +81,18 @@ class VisitAdapter constructor(private var visits: ArrayList<VisitModel>,
 
         val readOnlyRow = readOnly
 
+
         fun bind(visit: VisitModel, listener: VisitClickListener) {
 
             binding.root.tag = visit
             binding.visit = visit
-            Picasso.get().load(visit.pic.toUri())
-                .resize(200, 200)
+            Picasso.get().load(visit.pic)
+                .resize(200,200)
                 .transform(customTransformation())
                 .centerCrop()
                 .into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onVisitClick(visit) }
             binding.executePendingBindings()
-
-            binding.favBtn.setOnClickListener{
-                if (firebaseAuth.currentUser == null){
-                    Timber.i("Please Login")
-                }
-                else {
-                    if (isFavourite) {
-                        removeFromFavourites(VisitModel(visitTitle = ""))
-                    }
-                    else {
-                        addToFavourites(VisitModel(visitTitle = ""))
-                    }
-                }
-            }
 
         }
 
@@ -95,11 +104,9 @@ class VisitAdapter constructor(private var visits: ArrayList<VisitModel>,
                     override fun onDataChange(snapshot: DataSnapshot) {
                         isFavourite = snapshot.exists()
                         if (isFavourite){
-                            binding.favBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.ic_favorite_fill, 0, 0)
                             binding.favBtn.text = "Remove"
                         }
                         else {
-                            binding.favBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.ic_favorite_nofill, 0, 0)
                            binding.favBtn.text = "Add"
                         }
                     }
@@ -109,8 +116,8 @@ class VisitAdapter constructor(private var visits: ArrayList<VisitModel>,
                     }
                 })
         }
+
         private fun addToFavourites(visitModel: VisitModel){
-            Log.d(ContentValues.TAG, "addToFavourite: Adding to favourites")
             val hashMap = HashMap<String, Any>()
             val visitTitle = visitModel.visitTitle
             hashMap["visitId"] = visitTitle
@@ -118,24 +125,23 @@ class VisitAdapter constructor(private var visits: ArrayList<VisitModel>,
                 .setValue(hashMap)
                 .addOnSuccessListener {
 
-                   Log.d(ContentValues.TAG, "addToFavourite: Added to Favourites")
+                   Timber.i("Added to Favourites")
                 }
                 .addOnFailureListener{
                         e->
-                    Log.d(ContentValues.TAG, "addToFavourite: Error")
+                    Timber.i("Add to Favourites error")
                 }
         }
 
         private fun removeFromFavourites(visitModel: VisitModel){
-            Log.d(ContentValues.TAG, "removeFromFavourite: Removing from favourites")
             val visitTitle = visitModel.visitTitle
             FirebaseDBManager.database.child(firebaseAuth.uid!!).child("Favourites").child(visitTitle)
                 .removeValue()
                 .addOnSuccessListener {
-                    Log.d(ContentValues.TAG, "removeFromFavourite: Removed from Favourites")
+                    Timber.i("Removed from Favourites")
                 }
                 .addOnFailureListener{e->
-                    Log.d(ContentValues.TAG, "removeFromFavourite: Error")
+                    Timber.i("Error: not removed from Favourites")
                 }
 
         }

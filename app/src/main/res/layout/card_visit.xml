@@ -51,7 +51,7 @@
                 android:layout_marginStart="190dp"
                 android:layout_marginTop="47dp"
                 android:layout_toEndOf="@+id/imageIcon"
-                android:text="@{Integer.toString(visit.rating)}"
+                android:text="@{Float.toString(visit.rating)}"
                 android:textSize="24sp"
                 tools:text="5" />
 
@@ -67,14 +67,14 @@
                 app:srcCompat="@mipmap/ic_star_foreground" />
 
 
-            <Button
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/favBtn"
-                android:layout_width="103dp"
-                android:layout_height="53dp"
-                android:layout_marginStart="37dp"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
                 android:layout_toEndOf="@+id/visitTitle"
-                android:drawableLeft="@drawable/ic_favorite_nofill"
-                android:text="Add" />
+                android:background="@null"
+                android:drawableLeft="@drawable/button_favourite" />
 
             <TextView
                 android:id="@+id/visitType"

@@ -23,6 +23,11 @@
         <item name="colorControlHighlight">@color/black</item>
     </style>
 
+    <style name="toggleFav">
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/grey</item>
+    </style>
+
     <style name="Theme.Rove2App.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Rove2App.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

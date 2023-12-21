@@ -1,12 +1,18 @@
 package ie.wit.donationx.ui.visit
 
+import android.app.Activity.RESULT_CANCELED
+import android.app.Activity.RESULT_OK
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.CompoundButton
 import android.widget.Toast
 import android.widget.ToggleButton
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
@@ -23,6 +29,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
 import ie.wit.donationx.R
 import ie.wit.donationx.databinding.FragmentVisitBinding
 import ie.wit.donationx.firebase.FirebaseDBManager
@@ -30,6 +37,7 @@ import ie.wit.donationx.models.VisitModel
 import ie.wit.donationx.ui.auth.LoggedInViewModel
 import ie.wit.donationx.ui.map.MapsViewModel
 import ie.wit.donationx.ui.report.ReportViewModel
+import ie.wit.donationx.utils.showImagePicker
 import timber.log.Timber
 
 class VisitFragment : Fragment() {
@@ -53,26 +61,19 @@ class VisitFragment : Fragment() {
         _fragBinding = FragmentVisitBinding.inflate(inflater, container, false)
         val root = fragBinding.root
         activity?.title = getString(R.string.action_addVisit)
-	    setupMenu()
+        setupMenu()
         visitViewModel = ViewModelProvider(this).get(VisitViewModel::class.java)
-        visitViewModel.observableStatus.observe(viewLifecycleOwner, Observer {
-                status -> status?.let { render(status) }
+        visitViewModel.observableStatus.observe(viewLifecycleOwner, Observer { status ->
+            status?.let { render(status) }
         })
 
 
         fragBinding.visitTitle.getText().toString()
 
-        //fragBinding.progressBar.max = 10000
-        fragBinding.ratingPicker.minValue = 1
-        fragBinding.ratingPicker.maxValue = 10
-
-        fragBinding.ratingPicker.setOnValueChangedListener { _, _, newVal ->
-            //Display the newly selected number to ratingAmount
-            fragBinding.ratingAmount.setText("$newVal")
-        }
         setButtonListener(fragBinding)
         return root
     }
+
 
     private fun render(status: Boolean) {
         when (status) {
@@ -90,8 +91,8 @@ class VisitFragment : Fragment() {
     fun setButtonListener(layout: FragmentVisitBinding) {
         layout.addVisitButton.setOnClickListener {
             val visitTitle = fragBinding.visitTitle.getText().toString()
-            val rating = if (layout.ratingAmount.text.isNotEmpty())
-                layout.ratingAmount.text.toString().toInt() else layout.ratingPicker.value
+            val rating =  if (layout.ratingAmount.text.isNotEmpty())
+                layout.ratingAmount.text.toString().toFloat() else layout.ratingPicker.rating.toString().toFloat()
             val visitType = if(layout.visitType.checkedRadioButtonId == R.id.Bar) "Bar"
             else if (layout.visitType.checkedRadioButtonId == R.id.Restaurant) "Restaurant"
             else if (layout.visitType.checkedRadioButtonId == R.id.Hotel) "Hotel"
@@ -106,6 +107,8 @@ class VisitFragment : Fragment() {
                     longitude = mapsViewModel.currentLocation.value!!.longitude))
         }
     }
+
+
  private fun setupMenu() {
         (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
             override fun onPrepareMenu(menu: Menu) {
@@ -137,11 +140,14 @@ class VisitFragment : Fragment() {
         _fragBinding = null
     }
 
+
     override fun onResume() {
         super.onResume()
         val reportViewModel = ViewModelProvider(this).get(ReportViewModel::class.java)
         reportViewModel.observableVisitsList.observe(viewLifecycleOwner, Observer {
         })
     }
+
 }
+
 

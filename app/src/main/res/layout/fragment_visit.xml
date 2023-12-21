@@ -68,8 +68,8 @@
 
     <RadioGroup
         android:id="@+id/visitType"
-        android:layout_width="258dp"
-        android:layout_height="255dp"
+        android:layout_width="145dp"
+        android:layout_height="247dp"
         android:layout_below="@+id/visitSubtitle"
         android:layout_alignParentStart="true"
         android:layout_marginStart="8dp"
@@ -120,7 +120,8 @@
             android:text="@string/museum" />
     </RadioGroup>
 
-    <NumberPicker
+
+    <RatingBar
         android:id="@+id/ratingPicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -129,32 +130,32 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:stepSize="0.5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.973"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.333" />
+        app:layout_constraintVertical_bias="0.642" />
 
 
-    <TextView
-        android:id="@+id/rating"
+    <Button
+        android:id="@+id/ratingButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/rating"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:hint="@string/enter_rating"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.081"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.778" />
+        app:layout_constraintVertical_bias="0.742" />
 
-    <EditText
+    <TextView
         android:id="@+id/ratingAmount"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
@@ -162,15 +163,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:autofillHints="Please Enter an Amount"
-        android:ems="10"
         android:hint="@string/enter_rating"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.888"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.781" />
+        app:layout_constraintVertical_bias="0.841"
+        tools:ignore="TextViewEdits" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

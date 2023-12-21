@@ -1,5 +1,6 @@
 package ie.wit.donationx.models
 
+import android.net.Uri
 import android.os.Parcelable
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
@@ -10,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 data class VisitModel(var uid: String = "",
                       val visitTitle: String = "",
                       val visitType: String = "N/A",
-                      val rating: Int = 0,
+                      val rating: Float = 0.0F,
                       var pic: String = "",
                       var isFavourite: Boolean = false,
                       var latitude: Double = 0.0,
