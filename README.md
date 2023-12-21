@@ -20,16 +20,17 @@ User visits are displayed on a map fragment displaying the location the visit wa
 About Fragment: <br>
 Displays information about the app to the user. <br>
 User navigation Flow: <br>
-![image](https://github.com/MaireadHolton/RoveApp2/assets/97246575/6e3d276e-7cbb-48ca-8506-2f6d61aeb261)
+![image](https://github.com/MaireadHolton/RoveApp2/assets/97246575/6e3d276e-7cbb-48ca-8506-2f6d61aeb261) <br>
 
 
 #### **Elements employed:**
-I have used android studio to create the app with firebase real time database to store all visits in the app. I have created a login page with firebase authentication employed using email and password authentication and also google authentication.
-I have added a rating bar to the RoveView to allow users to rate the loactions they have visited. A user image is 
+I have used android studio to create the app with firebase real time database to store all visits in the app. I have created a login page with firebase authentication employed using email and password authentication and also google authentication via google signin API.
+I have added a rating bar to the add Visit fragment to allow users to rate the places they have visited and a radio group to select the business type visited by the user. A user image is linked to each of the visits added using the storage SDK from Firebase. All visits added by the user are stored on a firebase real time database. 
+I have also created a map fragment to display the users visits, this was achieved using goosle maps API.
 
 ##### **UML & Class Diagram: **
 
-![image](https://github.com/MaireadHolton/RoveApp2/assets/97246575/5e4fae04-d3b7-4002-b2d4-116c8bca3390)
+![image](https://github.com/MaireadHolton/RoveApp2/assets/97246575/5e4fae04-d3b7-4002-b2d4-116c8bca3390) <br>
 
 ###### **References:**
 Databinding: https://developer.android.com/topic/libraries/data-binding <br>
