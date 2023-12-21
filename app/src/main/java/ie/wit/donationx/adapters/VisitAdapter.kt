@@ -86,7 +86,7 @@ class VisitAdapter constructor(private var visits: ArrayList<VisitModel>,
 
             binding.root.tag = visit
             binding.visit = visit
-            Picasso.get().load(visit.pic)
+            Picasso.get().load(visit.pic.toUri(0)
                 .resize(200,200)
                 .transform(customTransformation())
                 .centerCrop()
