@@ -4,7 +4,7 @@ This is an Android app which allows users to rate businesses on accessibility. U
 
 ## **Structure**
 
-The project is laid out according to MVVM design pattern
+The project is laid out according to MVVM design pattern. Navigation and architecture were updated in this version of the project to include the navigation drawer and fragments for creating views on the app.
 
 ## **Design/ UX Approach**
 
